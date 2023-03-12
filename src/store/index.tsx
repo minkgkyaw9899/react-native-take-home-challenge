@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 
 import cartReducer from 'actions/cartSlice';
 import userReducer from 'actions/userSlice';
+import cartModalReducer from 'actions/cartModalSlice';
 
 const rootPersistConfig = {
   key: 'root',
@@ -24,6 +25,7 @@ const cartPersistConfig = {
 const rootReducer = combineReducers({
   user: persistReducer(userPersistConfig, userReducer),
   cart: persistReducer(cartPersistConfig, cartReducer),
+  cartModal: cartModalReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

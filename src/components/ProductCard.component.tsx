@@ -1,56 +1,20 @@
-import React, {memo, useEffect, useState} from 'react';
-import {Button, Text} from 'react-native-paper';
-import {usePokemonData} from 'hooks';
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Badge, Button, Text} from 'react-native-paper';
+import {useAppDispatch, useAppSelector, usePokemonData} from 'hooks';
+import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Pokemon} from 'types/pokemon/types';
 import {FilterComponent} from 'components/FilterComponent';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-const CardItem = memo(({pokemon}: {pokemon: Pokemon}) => {
-  return (
-    <View key={pokemon.id} style={[styles.card]}>
-      <Image
-        source={{uri: pokemon.images.large}}
-        resizeMode={'center'}
-        alt={pokemon.name}
-        style={styles.cardImage}
-      />
-      <View style={{marginTop: 70}}>
-        <Text variant={'titleLarge'} style={styles.cardTitle}>
-          {pokemon.name}
-        </Text>
-        <Text variant={'bodySmall'} style={styles.cardRarity}>
-          {pokemon.rarity}
-        </Text>
-        <View style={styles.cardPriceContainer}>
-          <Text variant={'bodyLarge'} style={{color: '#BEBDBD'}}>
-            ${pokemon.cardmarket.prices.averageSellPrice}
-          </Text>
-          <Text variant={'bodyLarge'} style={{color: '#BEBDBD'}}>
-            {pokemon.set.total}&nbsp;left
-          </Text>
-        </View>
-      </View>
-
-      <Button
-        onPress={() => console.log('pressed')}
-        style={styles.cardBtn}
-        mode={'contained'}
-        buttonColor={'#FDCE29'}
-        textColor={'#000000'}>
-        Select Card
-      </Button>
-    </View>
-  );
-});
+import {selectedCartModal, showModal} from 'actions/cartModalSlice';
+import {ProductCardItem} from 'components/ProductCartItem.component';
+import { selectedCart } from "actions/cartSlice";
 
 export const ProductCardComponent = () => {
+  const {visible} = useAppSelector(selectedCartModal);
+  const {totalQuantity} = useAppSelector(selectedCart)
+
+  const dispatch = useAppDispatch();
+
   const [products, setProducts] = useState<Pokemon[]>([]);
 
   const [pageSize, setPageSize] = useState<number>(12);
@@ -63,40 +27,33 @@ export const ProductCardComponent = () => {
 
   const handleShowMore = () => setPageSize(prev => prev + 12);
 
+  const handleShowModal = () => dispatch(showModal());
+
   return (
     <View style={styles.root}>
-      <Button
-        icon="cart"
-        mode="contained"
-        buttonColor={'#298BFD'}
-        style={{
-          width: 120,
-          borderRadius: 8,
-          marginBottom: 20,
-          position: 'absolute',
-          bottom: 0,
-          zIndex: 1,
-        }}
-        onPress={() => console.log('Pressed')}>
-        View Carts
-      </Button>
+      {!visible && totalQuantity !== 0 && (
+        <View style={styles.openModalBtn}>
+          <Badge size={20} style={styles.badge}>
+            {totalQuantity}
+          </Badge>
+          <Button
+            icon="cart"
+            mode="contained"
+            buttonColor={'#298BFD'}
+            // style={styles.openModalBtn}
+            onPress={handleShowModal}>
+            View Carts
+          </Button>
+        </View>
+      )}
       <FlatList
         ListHeaderComponent={<FilterComponent />}
         showsVerticalScrollIndicator={false}
         data={products}
         keyExtractor={item => item.id}
-        renderItem={({item}) => <CardItem pokemon={item} />}
+        renderItem={({item}) => <ProductCardItem pokemon={item} />}
         ListFooterComponent={() => (
-          <TouchableOpacity
-            onPress={handleShowMore}
-            style={{
-              marginBottom: 100,
-              alignItems: 'center',
-              alignContent: 'center',
-              flexDirection: 'row',
-              alignSelf: 'center',
-              marginTop: -49,
-            }}>
+          <TouchableOpacity onPress={handleShowMore} style={styles.showMoreBtn}>
             <Icon name={'search'} size={18} />
             <Text variant={'labelLarge'} style={{marginLeft: 6}}>
               Show More
@@ -114,40 +71,29 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  card: {
     position: 'relative',
-    width: 300,
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    flex: 1,
-    alignContent: 'center',
-    paddingTop: 20,
-    height: 220,
-    borderRadius: 30,
-    marginVertical: 120,
   },
-  cardImage: {
-    width: 200,
-    height: 250,
+  openModalBtn: {
+    width: 120,
+    borderRadius: 8,
+    marginBottom: 20,
     position: 'absolute',
-    top: -180,
+    bottom: 0,
+    zIndex: 1,
   },
-  cardTitle: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    paddingVertical: 4,
-  },
-  cardRarity: {
-    textAlign: 'center',
-    paddingVertical: 4,
-    color: '#1E76B5',
-  },
-  cardPriceContainer: {
-    width: 150,
+  showMoreBtn: {
+    marginBottom: 100,
+    alignItems: 'center',
+    alignContent: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 5,
+    alignSelf: 'center',
+    marginTop: -49,
   },
-  cardBtn: {position: 'absolute', bottom: -20, width: 180},
+  badge: {
+    position: 'absolute',
+    left: -6,
+    bottom: 20,
+    zIndex: 1,
+    backgroundColor: '#FF7B7B'
+  }
 });
