@@ -1,12 +1,8 @@
 # react-native-take-home-challenge
 
 ## Download App Link
-
-- [Universal app 🚀🚀🚀](https://drive.google.com/file/d/19NbFT3PddWRbgcAjaZAX2-wPxK8dlH6c/view?usp=share_link)
-- [arm64-v8a app 🚀🚀🚀](https://drive.google.com/file/d/1Nb2XMY5vWUTUOn4_xXGI6GhDi_HrFvmC/view?usp=share_link)
-- [armeabi-v7a app 🚀🚀🚀](https://drive.google.com/file/d/1jHJjo2FYb7hmjnjME4crj6ijs5zdedsB/view?usp=share_link)
-- [app-x86_64 app 🚀🚀🚀](https://drive.google.com/file/d/1rKCXPoUZLXAo7QzgwURk-XsGcwMGnpHz/view?usp=share_link)
-- [app-x86 app 🚀🚀🚀](https://drive.google.com/file/d/1Z0MzpLlje3LvYjInbZCR_zmQdxITvDIk/view?usp=share_link)
+[👉 Click to Download 👈](https://drive.google.com/drive/folders/1ftg0NDCYSOmUfQnJBBxXx7-e4tyZjQty?usp=share_link)
+> Normal user should be download **universal** app
 
 
 ## SetUp
