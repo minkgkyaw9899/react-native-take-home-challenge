@@ -1,6 +1,11 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
+project.ext.vectoricons = [
+    iconFontNames: [ 'MaterialCommunityIcons.ttf', 'MaterialIcons.ttf', 'EvilIcons.ttf', 'Ionicons.ttf' ] // Name of the font files you want to copy
+]
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
 import com.android.build.OutputFile
 
 /**
@@ -58,12 +63,12 @@ react {
  * use App Bundles (https://developer.android.com/guide/app-bundle/)
  * and want to have separate APKs to upload to the Play Store.
  */
-def enableSeparateBuildPerCPUArchitecture = false
+def enableSeparateBuildPerCPUArchitecture = true
 
 /**
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 /**
  * The preferred build flavor of JavaScriptCore (JSC)
@@ -106,7 +111,7 @@ android {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
+            universalApk true  // If true, also generate a universal APK
             include (*reactNativeArchitectures())
         }
     }
