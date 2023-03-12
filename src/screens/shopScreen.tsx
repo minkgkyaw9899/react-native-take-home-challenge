@@ -4,7 +4,7 @@ import {Appbar} from 'react-native-paper';
 import {ShopScreenProps} from 'types/navigation/types';
 import {ProductCardList} from 'components/ProductCardList.component';
 import {CartModal} from 'components/CartModal.component';
-import Logo from "assets/logo.svg"
+import Logo from 'assets/logo.svg';
 
 const ShopScreen: FC<ShopScreenProps> = () => {
   return (
@@ -14,10 +14,13 @@ const ShopScreen: FC<ShopScreenProps> = () => {
           titleStyle={{textAlign: 'center', marginBottom: 20}}
           title="TCG Marketplace"
         />
-        <Logo style={{position: 'absolute', top: 20, left: 150}} width={100} height={100} />
+        <Logo
+          style={{position: 'absolute', top: 20, left: 150}}
+          width={100}
+          height={100}
+        />
       </Appbar.Header>
-      <View
-        style={styles.productContainer}>
+      <View style={styles.productContainer}>
         <ProductCardList />
         <CartModal />
       </View>
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });
 
 export default ShopScreen;

@@ -5,6 +5,7 @@ import {
   CartItem as CartItemProps,
   decreaseQuantity,
   increaseQuantity,
+  removeFromCart,
 } from 'actions/cartSlice';
 import {useAppDispatch} from 'hooks';
 
@@ -17,8 +18,12 @@ export const CartItem: FC<IProps> = memo(({pokemon}) => {
 
   const increaseQuantityHandler = () =>
     dispatch(increaseQuantity({id: pokemon.id, quantity: 1}));
-  const decreaseQuantityHandler = () =>
-    dispatch(decreaseQuantity({id: pokemon.id, quantity: 1}));
+  const decreaseQuantityHandler = () => {
+    if (pokemon.quantity > 1) {
+      return dispatch(decreaseQuantity({id: pokemon.id, quantity: 1}));
+    }
+    return dispatch(removeFromCart(pokemon));
+  };
 
   return (
     <View

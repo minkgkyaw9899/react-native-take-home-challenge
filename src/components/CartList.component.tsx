@@ -31,13 +31,13 @@ export const CartList = () => {
           <Text
             style={{marginVertical: 10, textAlign: 'center'}}
             variant={'headlineSmall'}>
-            {' '}
-            Payment Success!{' '}
+            Payment Success!
           </Text>
         </View>
       ) : (
         <View>
           <FlatList
+            style={{flex: 1}}
             data={items}
             keyExtractor={item => item.id}
             renderItem={({item}) => <CartItem pokemon={item} />}

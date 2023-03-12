@@ -43,7 +43,7 @@ const cartSlice = createSlice({
       };
       state.items.push(cartItem);
     },
-    removeFromCart: (state, action: PayloadAction<Pokemon>) => {
+    removeFromCart: (state, action: PayloadAction<CartItem>) => {
       const existedItem = state.items.find(
         pokemon => pokemon.id === action.payload.id,
       );
@@ -78,7 +78,7 @@ const cartSlice = createSlice({
           return {
             ...pokemon,
             quantity: pokemon.quantity + quantity,
-            remainStock: pokemon.remainStock - quantity
+            remainStock: pokemon.remainStock - quantity,
           };
         }
         return pokemon;
@@ -103,7 +103,7 @@ const cartSlice = createSlice({
           return {
             ...pokemon,
             quantity: pokemon.quantity - quantity,
-            remainStock: pokemon.remainStock + quantity
+            remainStock: pokemon.remainStock + quantity,
           };
         }
         return pokemon;
