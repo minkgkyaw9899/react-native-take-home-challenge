@@ -4,9 +4,13 @@ import {Image, StyleSheet, View} from 'react-native';
 import {Button, Text} from 'react-native-paper';
 import {useAppDispatch, useAppSelector} from 'hooks';
 import {addToCart, selectedCart} from 'actions/cartSlice';
+import {selectedUser} from 'actions/userSlice';
+import {useNavigation} from '@react-navigation/native';
+import {ShopScreenProps} from 'types/navigation/types';
 
 export const ProductCardItem = memo(({pokemon}: {pokemon: Pokemon}) => {
   const {items} = useAppSelector(selectedCart);
+  const {token} = useAppSelector(selectedUser);
 
   const [isCartItem, setIsCartItem] = useState(false);
 
@@ -18,7 +22,15 @@ export const ProductCardItem = memo(({pokemon}: {pokemon: Pokemon}) => {
 
   const dispatch = useAppDispatch();
 
-  const handleSelectCard = () => dispatch(addToCart(pokemon));
+  const navigation = useNavigation<ShopScreenProps>();
+
+  const handleSelectCard = () => {
+    if (!token) {
+      // @ts-ignore
+      return navigation.navigate('Login');
+    }
+    dispatch(addToCart(pokemon));
+  };
 
   return (
     <View key={pokemon.id} style={[styles.card]}>

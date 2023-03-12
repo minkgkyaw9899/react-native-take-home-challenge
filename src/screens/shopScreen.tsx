@@ -1,9 +1,8 @@
-import React, {FC, useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import React, {FC} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {ShopScreenProps} from 'types/navigation/types';
-import {Appbar, Button} from 'react-native-paper';
-import {FilterComponent} from 'components/FilterComponent';
-import {ProductCardComponent} from 'components/ProductCard.component';
+import {Appbar} from 'react-native-paper';
+import {ProductCardList} from 'components/ProductCardList.component';
 import {CartModal} from 'components/CartModal.component';
 
 const ShopScreen: FC<ShopScreenProps> = () => {
@@ -22,7 +21,7 @@ const ShopScreen: FC<ShopScreenProps> = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <ProductCardComponent />
+        <ProductCardList />
         <CartModal />
       </View>
     </View>

@@ -16,10 +16,16 @@ const initialState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    login: state => {
+      state.email = 'example@gmail.com';
+      state.password = 'example@pasword';
+      state.token = 'token';
+    },
+  },
 });
 
-export const {} = userSlice.actions;
+export const {login} = userSlice.actions;
 
 export const selectedUser = (state: RootState) => state.user;
 

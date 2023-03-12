@@ -7,11 +7,11 @@ import {FilterComponent} from 'components/FilterComponent';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {selectedCartModal, showModal} from 'actions/cartModalSlice';
 import {ProductCardItem} from 'components/ProductCartItem.component';
-import { selectedCart } from "actions/cartSlice";
+import {selectedCart} from 'actions/cartSlice';
 
-export const ProductCardComponent = () => {
+export const ProductCardList = () => {
   const {visible} = useAppSelector(selectedCartModal);
-  const {totalQuantity} = useAppSelector(selectedCart)
+  const {totalQuantity} = useAppSelector(selectedCart);
 
   const dispatch = useAppDispatch();
 
@@ -94,6 +94,6 @@ const styles = StyleSheet.create({
     left: -6,
     bottom: 20,
     zIndex: 1,
-    backgroundColor: '#FF7B7B'
-  }
+    backgroundColor: '#FF7B7B',
+  },
 });
